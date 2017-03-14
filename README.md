@@ -67,6 +67,7 @@ Todo
 
 Version
 -------
+0.1.6: Google Analytics, rounded square icon, and blue screenshots
 0.1.5: updated logo and promo
 0.1.4: fix packaging
 0.1.3: update keyboard handling for scroll to focus
