@@ -1,0 +1,84 @@
+body {
+  max-width: 40em;
+  width: 40em;
+  color: #444;
+  aa-font-size: 90%;
+  aa-overflow-y: hidden;
+}
+
+#search {
+  width: 83%;
+  margin-left: 10px;
+  border: 1px solid #bdbdbd;
+  -webkit-box-shadow: inset 0 2px 2px #ececec, 0 1px 1px #fff;
+  box-shadow: inset 0 2px 2px #ececec, 0 1px 1px #fff;
+  background-color: #fff;
+  padding: 5px 32px 5px 32px;
+  outline: none;
+  font-size: 12px;
+}
+input#search:focus {
+  border: 1px solid #4078c7;
+}
+
+#tabs {
+  padding: 5px 0px;
+  width: 100%;
+  overflow-y: scroll;
+  aa-max-height: 60em;
+  height: 40em;
+}
+
+.item {
+  padding: 2px 2px 2px 8px;
+  margin: 2px;
+  width: 96%; 
+}
+.item:hover {
+  margin: 2px;
+  color: #444;
+  border: 1px solid lightgrey;
+}
+.item.focus:before { 
+  margin-left: -8px;
+  content:"\00bb\0020"; 
+  float: left;
+  font-size: 120%;
+  padding-right: 3px;
+}
+
+.tab {
+  border: 1px solid white;
+}
+.tab .icon {
+  float: left;
+  width: 5%;
+}
+.tab .icon img {
+  height: 16px;
+  width: 16px;
+  vertical-align: middle;
+}
+.tab .fields {
+  float: left;
+  margin: 0px 10px;
+  width: 90%;
+}
+.tab .fields b {
+  background-color: rgb(255, 150, 50);
+  font-weight: normal;
+}
+.tab .fields .url {
+  font-size: small;
+  margin-top: 2px;
+  color: #888;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tab .fields .title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+

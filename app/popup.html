@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+  <title>Simple Tab Finder - Chrome Extension</title>
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/mustache.min.js"></script>
+  <script type="text/javascript" src="js/popup.js"></script>
+  <link rel="stylesheet" href="styles/tf.css" type="text/css" media="all"/>
+</head>
+<body>
+
+<div>
+  <input id="search" type="text" name="search" 
+        value="" placeholder="Search your open tabs" 
+        autocomplete="off" tabindex="1" autofocus/>
+</div>
+
+<div id="tabs">
+</div>
+
+<script id="tab-template" type="x-tmpl-mustache">
+  <div class="item" id="{{id}}">
+  <div class="tab">
+
+    <div class="icon">
+      <img src="{{favIconUrl}}"/>
+    </div>
+
+    <div class="fields">
+      <div class="title">
+        <a class="tabAnchor" id="{{id}}" 
+           title="{{{match.highlight.url}}}">{{{match.highlight.title}}}</a>
+      </div>
+      <div class="url">
+         {{{match.highlight.url}}}
+      </div>
+    </div>
+
+    <div style="clear: both"></div>
+  </div>
+  </div>
+</script>
+
+
+<script id="no-match-template" type="x-tmpl-mustache">
+  <div class="item">
+    No tabs found.
+  </div>
+</script>
+
+</body>
+</html>
+

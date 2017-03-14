@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+  "minimum_chrome_version": "25",
+
+  "version": "0.1.5",
+  "name": "Simple Tab Finder",
+  "short_name": "Simple Tab Finder",
+  "description": "Quickly find and go to your open tabs by simple title or url search.",
+  "icons": {
+    "128": "icons/tab-round_128.png",
+    "64": "icons/tab-round_64.png"
+  },
+  "browser_action": {
+    "default_icon": "icons/tab-round_128.png",
+    "default_title": "Simple Tab Finder",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "page": "bg.html",
+    "persistent": false
+  },
+  "permissions": [ "activeTab", "tabs" ]
+}
