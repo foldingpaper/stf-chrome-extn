@@ -2,8 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-var MAX_TABS_SEARCH_RESULTS=100;
+var MAX_TABS_SEARCH_RESULTS=200;
 var TAB_HEIGHT=41; // assume a default in px
+var TAB_TEMPLATE;
 
 // Traverse and display the tabs list
 function reItemMatcher(obj, search) {
@@ -63,32 +64,48 @@ function showTabs(search) {
     var matched = matcher['default'](tabs, searchStr)
     if (matched && matched.length > 0) {
       $.each(matched, renderTab);
+      renderResultsCount(matched.length);
       focusFirst();
     } else {
       renderNoResults();
     }
-
-    $('.item').click(function() {
-      switchTab(this.id);
-    });
   });
 }
 
 function resize() {
   var max_height = TAB_HEIGHT*13.5;
-  var tab_count = $(".item").length;
+  var tab_count = $('.item').length;
   var new_height = TAB_HEIGHT*tab_count;
   var h = Math.min(new_height, max_height);
-  $("#tabs").outerHeight(h);
+  $('#tabs').outerHeight(h);
+
+  $('.item').click(function() {
+    switchTab(this.id);
+  });
 }
 
 function renderTab(i, tab) {
   var t = tab;
+  if (!t.match.highlight.url) {
+    t.match.highlight.url = 'No url';
+  }
+  if (!t.match.highlight.title) {
+    t.match.highlight.title = 'No title';
+  }
   // render the templates
-  if (i>MAX_TABS_SEARCH_RESULTS) return;
-  var tabTemplate = $("#tab-template").html();
-  var renderedTab = Mustache.render(tabTemplate, t)
-  $("#tabs").append(renderedTab);
+  if (i>=MAX_TABS_SEARCH_RESULTS) return;
+  var renderedTab = Mustache.render(TAB_TEMPLATE, t)
+  $('#tabs').append(renderedTab);
+}
+
+function renderResultsCount(count) {
+  var searchField_jq = $('#search');
+  searchField_jq.attr('placeholder',
+    'Search your ' + count + ' open tabs');
+  var searchStr = searchField_jq.val().trim();
+  if (searchStr === '') {
+    searchField_jq.val(searchStr);
+  }
 }
 
 function renderNoResults() {
@@ -160,7 +177,7 @@ function switchToFocussed() {
   switchTab(jQuery(tabs[focusIndex]).attr('id'));
 }
 
-function refreshTabs(obj) {
+function refreshTabs() {
   val = $('#search').val();
   var tabs = $('#tabs');
   tabs.hide();
@@ -176,9 +193,7 @@ function isMetaKey(code) {
   return meta.indexOf(code) > -1;
 }
 
-$(document).ready(function() {
-
-  $('#search').keyup(function(e) {
+function searchKeyUp(e) {
     // using keyup to skip meta/ctrl keys
     if (isMetaKey(e.keyCode)) {
       return;
@@ -187,9 +202,9 @@ $(document).ready(function() {
       return;
     }
     refreshTabs();
-  });
+}
 
-  $(document).keydown(function(e) {
+function documentKeyDown(e) {
     if (e.keyCode == 38) { // up
       focusPrev();
       e.stopPropagation();
@@ -204,25 +219,32 @@ $(document).ready(function() {
       switchToFocussed();
       return false;
     }
-  });
+}
+
+function readyFunction() {
+  $('#search').keyup(searchKeyUp);
+  $(document).keydown(documentKeyDown);
 
   // lets display default results
   refreshTabs();
-  // setting a global var for tab height in px
-  setTimeout(function() {
-    TAB_HEIGHT = $(".item").outerHeight(true);
-    console.log(TAB_HEIGHT);
-  }, 250);
-});
+}
 
+$(document).ready(function() {
+  TAB_TEMPLATE = $("#tab-template").html();
+  readyFunction();
+});
 
 // Google Analytics
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-93674868-1']);
 _gaq.push(['_trackPageview']);
 
-(function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+setTimeout(function() {
+  var ga = document.createElement('script');
+  ga.type = 'text/javascript';
+  ga.async = true;
   ga.src = 'https://ssl.google-analytics.com/ga.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})();
+
+  var s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(ga, s);
+}, 1000);
