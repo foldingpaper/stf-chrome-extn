@@ -40,7 +40,7 @@ input#search:focus {
   border: 1px solid lightgrey;
 }
 .item.focus:before { 
-  margin-left: -8px;
+  margin-left: -10px;
   content:"\00bb\0020"; 
   float: left;
   font-size: 120%;
@@ -62,7 +62,7 @@ input#search:focus {
 .tab .fields {
   float: left;
   margin: 0px 10px;
-  width: 90%;
+  width: 88%;
 }
 .tab .fields b {
   background-color: rgb(255, 150, 50);

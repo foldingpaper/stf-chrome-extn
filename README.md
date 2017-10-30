@@ -58,7 +58,7 @@ Source code
 Package
 -------
 
-`zip -r stf_0.1.5.zip app`
+`zip -r stf_0.1.8.zip app`
 
 Todo
 ----
@@ -67,6 +67,7 @@ Todo
 
 Version
 -------
+0.1.8: Fix some css
 0.1.7: Delay GA call which was slowing startup, show tab count, other refactoring
 0.1.6: Google Analytics, rounded square icon, and blue screenshots
 0.1.5: updated logo and promo
